@@ -12,6 +12,9 @@
       padding: 2rem;
       color: #222;
     }
+    h1 {
+      margin-bottom: 2rem;
+    }
     h2 {
       background-color: #f25022;
       color: white;
@@ -31,7 +34,7 @@
     }
     .column {
       flex: 1;
-      min-width: 250px;
+      min-width: 280px;
     }
     .subject {
       border: 2px solid #f25022;
@@ -78,6 +81,7 @@
 <body>
   <h1>Plan de Estudios - Medicina</h1>
   <div class="grid">
+    <!-- CBC -->
     <div class="column" id="cbc">
       <h2>CBC</h2>
       <div class="subject" data-name="Química">Química</div>
@@ -88,6 +92,7 @@
       <div class="subject" data-name="Biología e Int. Biología Celular">Biología e Int. Biología Celular</div>
     </div>
 
+    <!-- Ciclo Biomédico -->
     <div class="column" id="biomedico">
       <h2>CICLO BIOMÉDICO*</h2>
       <h3>PRIMER AÑO</h3>
@@ -109,6 +114,45 @@
       <div class="subject locked" data-name="Farmacología I" data-req='["Química Biológica","Fisiología y Biofísica"]'>Farmacología I <span class="tooltip">Requiere Química Biológica y Fisiología</span></div>
     </div>
 
+    <!-- Ciclo Clínico -->
+    <div class="column" id="clinico">
+      <h2>CICLO CLÍNICO</h2>
+
+      <!-- Troncales -->
+      <div class="subject locked" data-name="Medicina A" data-req='["Microbiología y Parasitología I","Inmunología Humana","Patología I","Farmacología I","Salud Mental","Bioética I"]'>Medicina A <span class="tooltip">Requiere Microbio I, Inmunología, Patología I, Farmacología I, Salud Mental, Bioética I</span></div>
+      <div class="subject locked" data-name="Patología II" data-req='["Microbiología y Parasitología I","Inmunología Humana","Patología I","Farmacología I","Salud Mental","Bioética I"]'>Patología II <span class="tooltip">Requiere lo mismo que Medicina A</span></div>
+      <div class="subject locked" data-name="Salud Pública I" data-req='["Microbiología y Parasitología II"]'>Salud Pública I <span class="tooltip">Requiere Microbio II</span></div>
+      <div class="subject locked" data-name="Farmacología II" data-req='["Medicina A"]'>Farmacología II <span class="tooltip">Requiere Medicina A</span></div>
+      <div class="subject locked" data-name="Salud Pública II" data-req='["Salud Pública I"]'>Salud Pública II <span class="tooltip">Requiere Salud Pública I</span></div>
+      <div class="subject locked" data-name="Medicina Legal Deontología Médica" data-req='["Psiquiatría"]'>Medicina Legal <span class="tooltip">Requiere Psiquiatría</span></div>
+      <div class="subject locked" data-name="Bioética II" data-req='["Bioética I"]'>Bioética II <span class="tooltip">Requiere Bioética I</span></div>
+      <div class="subject locked" data-name="Toxicología" data-req='["Medicina A","Patología II"]'>Toxicología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+
+      <!-- Clínicas -->
+      <h3>CLÍNICAS</h3>
+      <div class="subject locked" data-name="Medicina B" data-req='["Medicina A","Patología II"]'>Medicina B <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Nutrición" data-req='["Medicina A","Patología II"]'>Nutrición <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Diagnóstico por Imágenes" data-req='["Medicina A","Patología II"]'>Diagnóstico por Imágenes <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Dermatología" data-req='["Medicina A","Patología II"]'>Dermatología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Infectología" data-req='["Medicina A","Patología II"]'>Infectología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Neumonología" data-req='["Medicina A","Patología II"]'>Neumonología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Neurología" data-req='["Medicina A","Patología II"]'>Neurología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Psiquiatría" data-req='["Medicina A","Patología II"]'>Psiquiatría <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+
+      <!-- Quirúrgicas -->
+      <h3>QUIRÚRGICAS</h3>
+      <div class="subject locked" data-name="Pediatría" data-req='["Medicina A","Patología II"]'>Pediatría <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Obstetricia" data-req='["Medicina A","Patología II"]'>Obstetricia <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Ginecología" data-req='["Medicina A","Patología II"]'>Ginecología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Cirugía general" data-req='["Medicina A","Patología II"]'>Cirugía general <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Urología" data-req='["Medicina A","Patología II"]'>Urología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Ortopedia - Traumatología" data-req='["Medicina A","Patología II"]'>Ortopedia - Traumatología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Oftalmología" data-req='["Medicina A","Patología II"]'>Oftalmología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Otorrinolaringología" data-req='["Medicina A","Patología II"]'>Otorrinolaringología <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+      <div class="subject locked" data-name="Neurocirugía" data-req='["Medicina A","Patología II"]'>Neurocirugía <span class="tooltip">Requiere Medicina A y Patología II</span></div>
+    </div>
+
+    <!-- Internado -->
     <div class="column" id="internado">
       <h2>CICLO INTERNADO ANUAL ROTATORIO</h2>
       <div class="subject locked" data-name="Clínica Médica" data-req='["Ciclo Clínico"]'>Clínica Médica <span class="tooltip">Requiere Ciclo Clínico completo</span></div>
@@ -123,7 +167,15 @@
 
   <script>
     const subjects = document.querySelectorAll(".subject");
-    const approved = new Set();
+    const approved = new Set(JSON.parse(localStorage.getItem("materiasAprobadas") || "[]"));
+
+    function saveProgress() {
+      localStorage.setItem("materiasAprobadas", JSON.stringify([...approved]));
+    }
+
+    function isCbcComplete() {
+      return Array.from(document.querySelectorAll("#cbc .subject")).every(el => approved.has(el.dataset.name));
+    }
 
     function updateSubjects() {
       subjects.forEach(subj => {
@@ -133,17 +185,12 @@
         const allReqMet = req.every(r => r === "CBC" ? isCbcComplete() : approved.has(r));
 
         subj.classList.remove("locked", "approved");
-
         if (isApproved) {
           subj.classList.add("approved");
         } else if (!allReqMet) {
           subj.classList.add("locked");
         }
       });
-    }
-
-    function isCbcComplete() {
-      return Array.from(document.querySelectorAll("#cbc .subject")).every(el => approved.has(el.dataset.name));
     }
 
     subjects.forEach(subj => {
@@ -155,6 +202,7 @@
         } else {
           approved.add(name);
         }
+        saveProgress();
         updateSubjects();
       });
     });
@@ -163,4 +211,5 @@
   </script>
 </body>
 </html>
+
 
