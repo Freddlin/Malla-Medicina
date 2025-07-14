@@ -176,13 +176,27 @@
     function isCbcComplete() {
       return Array.from(document.querySelectorAll("#cbc .subject")).every(el => approved.has(el.dataset.name));
     }
-
+    function isCicloClinicoComplete() {
+  const clinicoMaterias = [
+    "Medicina A", "Patología II", "Salud Pública I", "Farmacología II", "Salud Pública II",
+    "Medicina Legal Deontología Médica", "Bioética II", "Toxicología",
+    "Medicina B", "Nutrición", "Diagnóstico por Imágenes", "Dermatología", "Infectología",
+    "Neumonología", "Neurología", "Psiquiatría", "Pediatría", "Obstetricia", "Ginecología",
+    "Cirugía general", "Urología", "Ortopedia - Traumatología", "Oftalmología", 
+    "Otorrinolaringología", "Neurocirugía"
+  ];
+  return clinicoMaterias.every(name => approved.has(name));
+}
     function updateSubjects() {
       subjects.forEach(subj => {
         const name = subj.dataset.name;
         const req = JSON.parse(subj.dataset.req || "[]");
         const isApproved = approved.has(name);
-        const allReqMet = req.every(r => r === "CBC" ? isCbcComplete() : approved.has(r));
+        const allReqMet = req.every(r => {
+  if (r === "CBC") return isCbcComplete();
+  if (r === "Ciclo Clínico") return isCicloClinicoComplete();
+  return approved.has(r);
+});
 
         subj.classList.remove("locked", "approved");
         if (isApproved) {
