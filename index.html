@@ -1,234 +1,280 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malla Curricular - Medicina</title>
   <style>
-    :root {
-      --cbc: #aed581;
-      --biomed: #81d4fa;
-      --clinico: #ce93d8;
-      --internado: #ffab91;
-      --gris: #e0e0e0;
+    * {
+      box-sizing: border-box;
     }
 
     body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
       margin: 0;
       padding: 2rem;
-      font-family: "Segoe UI", sans-serif;
-      background: #f9f9f9;
     }
 
     h1 {
       text-align: center;
-      color: #37474f;
-      margin-bottom: 40px;
+      margin-bottom: 2rem;
+      color: #333;
     }
 
-    .fila {
+    .contenedor {
       display: flex;
       overflow-x: auto;
-      padding: 1rem 0;
-      margin-bottom: 30px;
-      gap: 1rem;
+      gap: 2rem;
+      padding-bottom: 2rem;
     }
 
-    .bloque {
+    .columna {
       min-width: 200px;
-      background: white;
+      background: #fff;
       border-radius: 12px;
       padding: 1rem;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .columna h2 {
+      font-size: 1.1rem;
+      margin: 0 0 0.5rem;
+      text-align: center;
+      color: #555;
+    }
+
+    .materia {
+      padding: 0.6rem;
+      background: #e0f7fa;
+      border-radius: 8px;
       cursor: pointer;
+      position: relative;
+      transition: all 0.2s;
+      text-align: center;
+    }
+
+    .materia:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .aprobada {
+      background: #c8e6c9;
+      border: 2px solid #43a047;
+      text-decoration: line-through;
+      color: #2e7d32;
+    }
+
+    .bloqueada {
+      background: #eeeeee;
+      color: #888;
+      cursor: not-allowed;
       position: relative;
     }
 
-    .bloque:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-    }
-
-    .bloque.aprobada {
-      border: 3px solid #66bb6a;
-      background-color: #e8f5e9;
-    }
-
-    .bloque.bloqueada {
-      background-color: var(--gris);
-      cursor: not-allowed;
-      opacity: 0.6;
-    }
-
-    .bloque span {
-      display: block;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 0.5rem;
-    }
-
-    .titulo-fila {
-      font-size: 1.3rem;
-      font-weight: bold;
-      margin-bottom: 0.5rem;
-      color: #455a64;
-    }
-
-    .tooltip {
+    .bloqueada::after {
+      content: attr(data-tooltip);
       position: absolute;
-      bottom: 105%;
+      bottom: 110%;
       left: 50%;
       transform: translateX(-50%);
       background: #333;
       color: #fff;
-      padding: 6px 10px;
-      border-radius: 6px;
+      padding: 4px 8px;
+      border-radius: 4px;
       font-size: 0.75rem;
       white-space: nowrap;
       display: none;
       z-index: 10;
     }
 
-    .bloque.bloqueada:hover .tooltip {
+    .bloqueada:hover::after {
       display: block;
     }
   </style>
 </head>
 <body>
   <h1>Malla Curricular - Medicina</h1>
-
-  <div id="malla"></div>
+  <div class="contenedor" id="contenedor"></div>
 
   <script>
-    const materias = [
-      // CBC
-      { nombre: "Química", grupo: "CBC", correlativas: [], color: "cbc" },
-      { nombre: "Introducción al Conocimiento de la Sociedad y el Estado", grupo: "CBC", correlativas: [], color: "cbc" },
-      { nombre: "Introducción al Pensamiento Científico", grupo: "CBC", correlativas: [], color: "cbc" },
-      { nombre: "Matemática", grupo: "CBC", correlativas: [], color: "cbc" },
-      { nombre: "Física e Introducción a la Biofísica", grupo: "CBC", correlativas: [], color: "cbc" },
-      { nombre: "Biología e Introducción a la Biología Celular", grupo: "CBC", correlativas: [], color: "cbc" },
+    const estructura = {
+      "CBC": [
+        "Química",
+        "Introducción al Conocimiento de la Sociedad y el Estado",
+        "Introducción al Pensamiento Científico",
+        "Matemática",
+        "Física e Introducción a la Biofísica",
+        "Biología e Introducción a la Biología Celular"
+      ],
+      "1º Año": [
+        "Anatomía",
+        "Histología-Biología Celular Embriología- Genética",
+        "Salud Mental",
+        "Bioética I",
+        "Medicina Familiar I"
+      ],
+      "2º Año": [
+        "Química Biológica",
+        "Fisiología y Biofísica"
+      ],
+      "3º Año": [
+        "Microbiología y Parasitología I",
+        "Inmunología Humana",
+        "Microbiología y Parasitología II",
+        "Patología I",
+        "Farmacología I"
+      ],
+      "Ciclo Clínico": [
+        "Medicina A",
+        "Patología II",
+        "Salud Pública I",
+        "Farmacología II",
+        "Salud Pública II",
+        "Psiquiatría",
+        "Medicina Legal Deontología Médica",
+        "Bioética II",
+        "Toxicología"
+      ],
+      "Clínicas": [
+        "Medicina B Medicina Interna",
+        "Nutrición",
+        "Diagnóstico por imágenes",
+        "Dermatología",
+        "Infectología",
+        "Neumonología",
+        "Neurología",
+        "Psiquiatría"
+      ],
+      "Quirúrgicas": [
+        "Pediatría",
+        "Obstetricia",
+        "Ginecología",
+        "Cirugía General",
+        "Urología",
+        "Ortopedia-Traumatología",
+        "Oftalmología",
+        "Otorrinolaringología",
+        "Neurocirugía"
+      ],
+      "Internado": [
+        "Clínica Médica",
+        "Cirugía",
+        "Tocoginecología",
+        "Pediatría",
+        "Salud Mental",
+        "APS",
+        "Módulo Específico/Curso de Residencia"
+      ]
+    };
 
-      // 1° Año
-      { nombre: "Anatomía", grupo: "1° Año", correlativas: ["CBC"], color: "biomed" },
-      { nombre: "Histología-Biología Celular Embriología- Genética", grupo: "1° Año", correlativas: ["CBC"], color: "biomed" },
-      { nombre: "Salud Mental", grupo: "1° Año", correlativas: ["CBC"], color: "biomed" },
-      { nombre: "Bioética I", grupo: "1° Año", correlativas: ["CBC"], color: "biomed" },
-      { nombre: "Medicina Familiar I", grupo: "1° Año", correlativas: ["CBC"], color: "biomed" },
+    const correlativas = {
+      "Anatomía": ["CBC"],
+      "Histología-Biología Celular Embriología- Genética": ["CBC"],
+      "Salud Mental": ["CBC"],
+      "Bioética I": ["CBC"],
+      "Medicina Familiar I": ["CBC"],
+      "Química Biológica": ["Histología-Biología Celular Embriología- Genética", "Anatomía"],
+      "Fisiología y Biofísica": ["Histología-Biología Celular Embriología- Genética", "Anatomía"],
+      "Microbiología y Parasitología I": ["Química Biológica", "Fisiología y Biofísica"],
+      "Inmunología Humana": ["Química Biológica", "Fisiología y Biofísica"],
+      "Microbiología y Parasitología II": ["Microbiología y Parasitología I", "Inmunología Humana", "Fisiología y Biofísica", "Química Biológica"],
+      "Patología I": ["Fisiología y Biofísica", "Química Biológica"],
+      "Farmacología I": ["Fisiología y Biofísica", "Química Biológica"],
+      "Medicina A": ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"],
+      "Patología II": ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"],
+      "Salud Pública I": ["Microbiología y Parasitología II"],
+      "Farmacología II": ["Medicina A"],
+      "Salud Pública II": ["Salud Pública I"],
+      "Psiquiatría": ["Medicina A", "Patología II"],
+      "Medicina Legal Deontología Médica": ["Psiquiatría"],
+      "Bioética II": ["Bioética I"],
+      "Toxicología": ["Medicina A", "Patología II"],
+      "Medicina B Medicina Interna": ["Medicina A", "Patología II"],
+      "Nutrición": ["Medicina A", "Patología II"],
+      "Diagnóstico por imágenes": ["Medicina A", "Patología II"],
+      "Dermatología": ["Medicina A", "Patología II"],
+      "Infectología": ["Medicina A", "Patología II"],
+      "Neumonología": ["Medicina A", "Patología II"],
+      "Neurología": ["Medicina A", "Patología II"],
+      "Pediatría": ["Medicina A", "Patología II"],
+      "Obstetricia": ["Medicina A", "Patología II"],
+      "Ginecología": ["Medicina A", "Patología II"],
+      "Cirugía General": ["Medicina A", "Patología II"],
+      "Urología": ["Medicina A", "Patología II"],
+      "Ortopedia-Traumatología": ["Medicina A", "Patología II"],
+      "Oftalmología": ["Medicina A", "Patología II"],
+      "Otorrinolaringología": ["Medicina A", "Patología II"],
+      "Neurocirugía": ["Medicina A", "Patología II"],
+      "Clínica Médica": ["Ciclo Clínico"],
+      "Cirugía": ["Ciclo Clínico"],
+      "Tocoginecología": ["Ciclo Clínico"],
+      "APS": ["Ciclo Clínico"],
+      "Módulo Específico/Curso de Residencia": ["Ciclo Clínico"]
+    };
 
-      // 2° Año
-      { nombre: "Química Biológica", grupo: "2° Año", correlativas: ["Histología-Biología Celular Embriología- Genética", "Anatomía"], color: "biomed" },
-      { nombre: "Fisiología y Biofísica", grupo: "2° Año", correlativas: ["Histología-Biología Celular Embriología- Genética", "Anatomía"], color: "biomed" },
+    let aprobadas = JSON.parse(localStorage.getItem("aprobadas")) || [];
 
-      // 3° Año
-      { nombre: "Microbiología y Parasitología I", grupo: "3° Año", correlativas: ["Química Biológica", "Fisiología y Biofísica"], color: "biomed" },
-      { nombre: "Inmunología Humana", grupo: "3° Año", correlativas: ["Química Biológica", "Fisiología y Biofísica"], color: "biomed" },
-      { nombre: "Microbiología y Parasitología II", grupo: "3° Año", correlativas: ["Fisiología y Biofísica", "Química Biológica", "Microbiología y Parasitología I", "Inmunología Humana"], color: "biomed" },
-      { nombre: "Patología I", grupo: "3° Año", correlativas: ["Fisiología y Biofísica", "Química Biológica"], color: "biomed" },
-      { nombre: "Farmacología I", grupo: "3° Año", correlativas: ["Fisiología y Biofísica", "Química Biológica"], color: "biomed" },
-
-      // Ciclo Clínico
-      { nombre: "Medicina A", grupo: "Ciclo Clínico", correlativas: ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"], color: "clinico" },
-      { nombre: "Patología II", grupo: "Ciclo Clínico", correlativas: ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"], color: "clinico" },
-      { nombre: "Salud Pública I", grupo: "Ciclo Clínico", correlativas: ["Microbiología y Parasitología II"], color: "clinico" },
-      { nombre: "Farmacología II", grupo: "Ciclo Clínico", correlativas: ["Medicina A"], color: "clinico" },
-      { nombre: "Salud Pública II", grupo: "Ciclo Clínico", correlativas: ["Salud Pública I"], color: "clinico" },
-      { nombre: "Psiquiatría", grupo: "Ciclo Clínico", correlativas: ["Medicina A", "Patología II"], color: "clinico" },
-      { nombre: "Medicina Legal Deontología Médica", grupo: "Ciclo Clínico", correlativas: ["Psiquiatría"], color: "clinico" },
-      { nombre: "Bioética II", grupo: "Ciclo Clínico", correlativas: ["Bioética I"], color: "clinico" },
-      { nombre: "Toxicología", grupo: "Ciclo Clínico", correlativas: ["Medicina A", "Patología II"], color: "clinico" },
-
-      // Clínicas
-      ...[
-        "Medicina B Medicina Interna", "Nutrición", "Diagnóstico por imágenes", "Dermatología",
-        "Infectología", "Neumonología", "Neurología", "Psiquiatría"
-      ].map(nombre => ({
-        nombre, grupo: "Clínicas", correlativas: ["Medicina A", "Patología II"], color: "clinico"
-      })),
-
-      // Quirúrgicas
-      ...[
-        "Pediatría", "Obstetricia", "Ginecología", "Cirugía General", "Urología",
-        "Ortopedia-Traumatología", "Oftalmología", "Otorrinolaringología", "Neurocirugía"
-      ].map(nombre => ({
-        nombre, grupo: "Quirúrgicas", correlativas: ["Medicina A", "Patología II"], color: "clinico"
-      })),
-
-      // Internado
-      ...[
-        "Clínica Médica", "Cirugía", "Tocoginecología", "Pediatría", "Salud Mental",
-        "APS", "Módulo Específico/Curso de Residencia"
-      ].map(nombre => ({
-        nombre, grupo: "Ciclo Internado", correlativas: ["Ciclo Clínico"], color: "internado"
-      }))
-    ];
-
-    let aprobadas = JSON.parse(localStorage.getItem("materias_aprobadas")) || [];
-
-    function cumpleCorrelativas(materia) {
-      if (materia.correlativas.includes("CBC")) {
-        return materias.filter(m => m.grupo === "CBC").every(m => aprobadas.includes(m.nombre));
-      }
-      if (materia.correlativas.includes("Ciclo Clínico")) {
-        return materias
-          .filter(m => ["Ciclo Clínico", "Clínicas", "Quirúrgicas"].includes(m.grupo))
-          .every(m => aprobadas.includes(m.nombre));
-      }
-      return materia.correlativas.every(c => aprobadas.includes(c));
+    function cumple(nombre) {
+      if (!correlativas[nombre]) return true;
+      return correlativas[nombre].every(dep => {
+        if (dep === "CBC") {
+          return estructura["CBC"].every(cbc => aprobadas.includes(cbc));
+        } else if (dep === "Ciclo Clínico") {
+          return Object.entries(estructura).filter(([g]) => g.startsWith("Ciclo") || g === "Clínicas" || g === "Quirúrgicas").flatMap(([, v]) => v).every(m => aprobadas.includes(m));
+        } else {
+          return aprobadas.includes(dep);
+        }
+      });
     }
 
     function render() {
-      const cont = document.getElementById("malla");
+      const cont = document.getElementById("contenedor");
       cont.innerHTML = "";
 
-      const grupos = [...new Set(materias.map(m => m.grupo))];
+      Object.entries(estructura).forEach(([grupo, materias]) => {
+        const col = document.createElement("div");
+        col.className = "columna";
 
-      grupos.forEach(grupo => {
-        const fila = document.createElement("div");
-        fila.className = "fila";
-
-        const titulo = document.createElement("div");
-        titulo.className = "titulo-fila";
+        const titulo = document.createElement("h2");
         titulo.textContent = grupo;
-        cont.appendChild(titulo);
-        cont.appendChild(fila);
+        col.appendChild(titulo);
 
-        materias.filter(m => m.grupo === grupo).forEach(materia => {
+        materias.forEach(m => {
           const div = document.createElement("div");
-          div.className = "bloque";
-          div.style.backgroundColor = `var(--${materia.color})`;
+          div.className = "materia";
 
-          const aprobada = aprobadas.includes(materia.nombre);
-          const habilitada = cumpleCorrelativas(materia);
+          const habilitada = cumple(m);
+          const estaAprobada = aprobadas.includes(m);
 
-          if (aprobada) div.classList.add("aprobada");
-          else if (!habilitada) div.classList.add("bloqueada");
-
-          div.textContent = materia.nombre;
-
-          if (!habilitada && !aprobada) {
-            const tooltip = document.createElement("div");
-            tooltip.className = "tooltip";
-
-            const faltantes = materia.correlativas.filter(c => !aprobadas.includes(c));
-            tooltip.textContent = "Requiere: " + faltantes.join(", ");
-            div.appendChild(tooltip);
+          if (!habilitada && !estaAprobada) {
+            div.classList.add("bloqueada");
+            const faltantes = (correlativas[m] || []).filter(c => c !== "CBC" && c !== "Ciclo Clínico" && !aprobadas.includes(c));
+            div.setAttribute("data-tooltip", "Faltan: " + faltantes.join(", "));
+          } else if (estaAprobada) {
+            div.classList.add("aprobada");
           }
 
+          div.textContent = m;
           div.onclick = () => {
-            if (!habilitada) return;
-            if (aprobada) {
-              aprobadas = aprobadas.filter(n => n !== materia.nombre);
+            if (!habilitada && !estaAprobada) return;
+            if (estaAprobada) {
+              aprobadas = aprobadas.filter(a => a !== m);
             } else {
-              aprobadas.push(materia.nombre);
+              aprobadas.push(m);
             }
-            localStorage.setItem("materias_aprobadas", JSON.stringify(aprobadas));
+            localStorage.setItem("aprobadas", JSON.stringify(aprobadas));
             render();
           };
 
-          fila.appendChild(div);
+          col.appendChild(div);
         });
+
+        cont.appendChild(col);
       });
     }
 
