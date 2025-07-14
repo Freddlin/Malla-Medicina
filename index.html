@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FMED - UBA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Times New Roman', serif;
       background: #ffffff;
       margin: 0;
       padding: 2rem;
@@ -26,8 +27,9 @@
     }
 
     h1 {
-      font-size: 2rem;
-      font-weight: bold;
+      font-family: 'Great Vibes', cursive;
+      font-size: 2.5rem;
+      font-weight: normal;
       text-align: center;
     }
 
@@ -36,6 +38,7 @@
       color: white;
       padding: 0.4rem 1rem;
       margin-bottom: 0;
+      font-family: 'Patrick Hand', cursive;
     }
 
     h3 {
@@ -43,6 +46,7 @@
       margin: 0;
       padding: 0.3rem 1rem;
       font-weight: normal;
+      font-family: 'Patrick Hand', cursive;
     }
 
     .grid {
@@ -107,7 +111,7 @@
 <body>
   <header>
     <img src="logo-uba.png" alt="Logo UBA">
-    <h1>FMED - UBA</h1>
+    <h1>Facultad de Medicina - UBA</h1>
   </header>
 
   <div class="grid" id="materias"></div>
@@ -133,9 +137,10 @@
             items: [
               ["Anatomía", ["CBC"]],
               ["Histología - Biología Celular Embriología - Genética", ["CBC"]],
-              ["Salud Mental (1er año)", ["CBC"]],
+              ["Salud Mental I", ["CBC"]],
               ["Bioética I", ["CBC"]],
-              ["Medicina Familiar", ["CBC"]]
+              ["Medicina Familiar", ["CBC"]],
+              ["Semiología-Fisiopatología", ["CBC"]]
             ]
           },
           {
@@ -160,28 +165,27 @@
       {
         titulo: "CICLO CLÍNICO",
         items: [
-          ["Medicina A", ["Microbiología y Parasitología I","Inmunología Humana","Patología I","Farmacología I","Salud Mental (1er año)","Bioética I"]],
-          ["Patología II", ["Microbiología y Parasitología I","Inmunología Humana","Patología I","Farmacología I","Salud Mental (1er año)","Bioética I"]],
+          ["Medicina A", ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental I", "Bioética I"]],
+          ["Patología II", ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental I", "Bioética I"]],
           ["Salud Pública I", ["Microbiología y Parasitología II"]],
           ["Farmacología II", ["Medicina A"]],
           ["Salud Pública II", ["Salud Pública I"]],
           ["Medicina Legal", ["Psiquiatría"]],
           ["Bioética II", ["Bioética I"]],
-          ["Toxicología", ["Medicina A","Patología II"]],
-          ["Semiología-Fisiopatología", ["Patología I"]]
+          ["Toxicología", ["Medicina A", "Patología II"]]
         ],
         secciones: [
           {
             subtitulo: "CLÍNICAS",
             items: [
-              ["Medicina B", ["Medicina A","Patología II"]],
-              ["Nutrición", ["Medicina A","Patología II"]],
-              ["Diagnóstico por Imágenes", ["Medicina A","Patología II"]],
-              ["Dermatología", ["Medicina A","Patología II"]],
-              ["Infectología", ["Medicina A","Patología II"]],
-              ["Neumonología", ["Medicina A","Patología II"]],
-              ["Neurología", ["Medicina A","Patología II"]],
-              ["Psiquiatría", ["Medicina A","Patología II"]]
+              ["Medicina B", ["Medicina A", "Patología II"]],
+              ["Nutrición", ["Medicina A", "Patología II"]],
+              ["Diagnóstico por Imágenes", ["Medicina A", "Patología II"]],
+              ["Dermatología", ["Medicina A", "Patología II"]],
+              ["Infectología", ["Medicina A", "Patología II"]],
+              ["Neumonología", ["Medicina A", "Patología II"]],
+              ["Neurología", ["Medicina A", "Patología II"]],
+              ["Psiquiatría", ["Medicina A", "Patología II"]]
             ]
           },
           {
@@ -207,7 +211,7 @@
           ["Cirugía", ["Ciclo Clínico"]],
           ["Tocoginecología", ["Ciclo Clínico"]],
           ["Pediatría Internado", ["Ciclo Clínico"]],
-          ["Salud Mental Internado", ["Ciclo Clínico"]],
+          ["Salud Mental II", ["Ciclo Clínico"]],
           ["APS", ["Ciclo Clínico"]],
           ["Módulo Específico / Curso de Residencia", ["Ciclo Clínico"]]
         ]
