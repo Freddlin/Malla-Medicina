@@ -12,6 +12,8 @@
       margin: 0;
       padding: 2rem;
       color: #222;
+      position: relative;
+      overflow-x: hidden;
     }
 
     header {
@@ -53,6 +55,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
+      z-index: 1;
     }
 
     .column {
@@ -106,6 +109,23 @@
     .subject.locked:hover .tooltip {
       visibility: visible;
     }
+
+    /* DECORACIONES */
+    .decoracion {
+      position: absolute;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .flores-izq { top: 100px; left: 10px; width: 100px; }
+    .flores-der { bottom: 10px; right: 10px; width: 100px; }
+    .conejo { top: 160px; left: 130px; width: 80px; }
+    .espiral { bottom: 150px; left: 45%; width: 60px; }
+    .lazo { bottom: 100px; left: 48%; width: 90px; }
+    .corazones { top: 150px; right: 100px; width: 120px; }
+    .snoopy { top: 200px; right: 20px; width: 120px; }
+    .gato { top: 10px; left: 50%; transform: translateX(-50%); width: 40px; }
+
   </style>
 </head>
 <body>
@@ -114,6 +134,17 @@
     <h1>Facultad de Medicina - UBA</h1>
   </header>
 
+  <!-- DECORACIONES -->
+  <img src="Flores.png" class="decoracion flores-izq" alt="flores">
+  <img src="Flores.png" class="decoracion flores-der" alt="flores">
+  <img src="Conejo.png" class="decoracion conejo" alt="conejo">
+  <img src="Espiral.png" class="decoracion espiral" alt="espiral">
+  <img src="Lazo.png" class="decoracion lazo" alt="lazo">
+  <img src="Corazones.png" class="decoracion corazones" alt="corazones">
+  <img src="Snoopy.png" class="decoracion snoopy" alt="snoopy">
+  <img src="Gato.png" class="decoracion gato" alt="gato">
+
+  <!-- MATERIAS -->
   <div class="grid" id="materias"></div>
 
   <script>
