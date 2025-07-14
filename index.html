@@ -1,284 +1,204 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Malla Curricular - Medicina</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Malla Curricular Medicina</title>
   <style>
-    * {
-      box-sizing: border-box;
-    }
-
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 2rem;
+      background-color: #fff;
+      color: #000;
     }
-
-    h1 {
+    h2 {
+      background-color: #ff5c00;
+      color: white;
+      padding: 10px;
+      margin: 0;
       text-align: center;
-      margin-bottom: 2rem;
-      color: #333;
-    }
-
-    .contenedor {
-      display: flex;
-      overflow-x: auto;
-      gap: 2rem;
-      padding-bottom: 2rem;
-    }
-
-    .columna {
-      min-width: 200px;
-      background: #fff;
-      border-radius: 12px;
-      padding: 1rem;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .columna h2 {
       font-size: 1.1rem;
-      margin: 0 0 0.5rem;
-      text-align: center;
-      color: #555;
     }
-
-    .materia {
-      padding: 0.6rem;
-      background: #e0f7fa;
-      border-radius: 8px;
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      gap: 15px;
+      justify-content: center;
+    }
+    .column {
+      flex: 1 1 200px;
+      max-width: 260px;
+    }
+    .subject {
+      border: 2px solid #ff5c00;
+      padding: 8px;
+      margin: 4px 0;
+      border-radius: 5px;
+      text-align: center;
       cursor: pointer;
-      position: relative;
-      transition: all 0.2s;
-      text-align: center;
+      transition: background 0.3s, opacity 0.3s;
     }
-
-    .materia:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    }
-
-    .aprobada {
-      background: #c8e6c9;
-      border: 2px solid #43a047;
+    .subject.aprobada {
       text-decoration: line-through;
-      color: #2e7d32;
+      opacity: 0.6;
     }
-
-    .bloqueada {
-      background: #eeeeee;
-      color: #888;
+    .subject.bloqueada {
+      border-style: dashed;
+      color: gray;
       cursor: not-allowed;
       position: relative;
     }
-
-    .bloqueada::after {
+    .subject.bloqueada::after {
       content: attr(data-tooltip);
       position: absolute;
-      bottom: 110%;
+      bottom: 100%;
       left: 50%;
       transform: translateX(-50%);
-      background: #333;
+      background: rgba(0, 0, 0, 0.75);
       color: #fff;
       padding: 4px 8px;
       border-radius: 4px;
-      font-size: 0.75rem;
       white-space: nowrap;
+      font-size: 0.8em;
       display: none;
-      z-index: 10;
     }
-
-    .bloqueada:hover::after {
+    .subject.bloqueada:hover::after {
       display: block;
+    }
+    .section-title {
+      background-color: #e0e0e0;
+      padding: 6px;
+      font-weight: bold;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <h1>Malla Curricular - Medicina</h1>
-  <div class="contenedor" id="contenedor"></div>
+  <h2>Plan de Estudios - Medicina</h2>
+  <div class="container">
+    <div class="column">
+      <h2>CBC</h2>
+      <div class="subject" onclick="toggle(this)">Química</div>
+      <div class="subject" onclick="toggle(this)">Int. Con. Sociedad y Estado</div>
+      <div class="subject" onclick="toggle(this)">Int. Pensamiento Científico</div>
+      <div class="subject" onclick="toggle(this)">Matemática</div>
+      <div class="subject" onclick="toggle(this)">Física e Int. Biofísica</div>
+      <div class="subject" onclick="toggle(this)">Biología e Int. Biología Celular</div>
+    </div>
+
+    <div class="column">
+      <h2>Ciclo Biomédico</h2>
+      <div class="section-title">Primer Año</div>
+      <div class="subject" data-req="CBC" onclick="toggle(this)">Anatomía</div>
+      <div class="subject" data-req="CBC" onclick="toggle(this)">Histología - Biología Celular Embriología - Genética</div>
+      <div class="subject" data-req="CBC" onclick="toggle(this)">Salud Mental</div>
+      <div class="subject" data-req="CBC" onclick="toggle(this)">Bioética I</div>
+      <div class="subject" data-req="CBC" onclick="toggle(this)">Medicina Familiar</div>
+      <div class="section-title">Segundo Año</div>
+      <div class="subject" data-req="Anatomía,Histología - Biología Celular Embriología - Genética" onclick="toggle(this)">Química Biológica</div>
+      <div class="subject" data-req="Anatomía,Histología - Biología Celular Embriología - Genética" onclick="toggle(this)">Fisiología y Biofísica</div>
+      <div class="section-title">Tercer Año</div>
+      <div class="subject" data-req="Química Biológica,Fisiología y Biofísica" onclick="toggle(this)">Microbiología y Parasitología I</div>
+      <div class="subject" data-req="Química Biológica,Fisiología y Biofísica" onclick="toggle(this)">Inmunología Humana</div>
+      <div class="subject" data-req="Microbiología y Parasitología I,Inmunología Humana,Química Biológica,Fisiología y Biofísica" onclick="toggle(this)">Microbiología y Parasitología II</div>
+      <div class="subject" data-req="Química Biológica,Fisiología y Biofísica" onclick="toggle(this)">Patología I</div>
+      <div class="subject" data-req="Química Biológica,Fisiología y Biofísica" onclick="toggle(this)">Farmacología I</div>
+    </div>
+
+    <div class="column">
+      <h2>Ciclo Clínico</h2>
+      <div class="subject" data-req="Microbiología y Parasitología I,Inmunología Humana,Patología I,Farmacología I,Salud Mental,Bioética I" onclick="toggle(this)">Medicina A (semiología - fisiopatología)</div>
+      <div class="subject" data-req="Microbiología y Parasitología I,Inmunología Humana,Patología I,Farmacología I,Salud Mental,Bioética I" onclick="toggle(this)">Patología II</div>
+      <div class="subject" data-req="Microbiología y Parasitología II" onclick="toggle(this)">Salud Pública I</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología)" onclick="toggle(this)">Farmacología II</div>
+      <div class="subject" data-req="Salud Pública I" onclick="toggle(this)">Salud Pública II</div>
+      <div class="subject" data-req="Psiquiatría" onclick="toggle(this)">Medicina Legal Deontología Médica</div>
+      <div class="subject" data-req="Bioética I" onclick="toggle(this)">Bioética II</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Toxicología</div>
+    </div>
+
+    <div class="column">
+      <h2>Clínicas</h2>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Medicina B (Medicina Interna)</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Nutrición</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Diagnóstico por Imágenes</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Dermatología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Infectología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Neumonología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Neurología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Psiquiatría</div>
+
+      <h2>Quirúrgicas</h2>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Pediatría</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Obstetricia</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Ginecología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Cirugía General</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Urología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Ortopedia - Traumatología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Oftalmología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Otorrinolaringología</div>
+      <div class="subject" data-req="Medicina A (semiología - fisiopatología),Patología II" onclick="toggle(this)">Neurocirugía</div>
+    </div>
+
+    <div class="column">
+      <h2>Ciclo Internado Anual Rotatorio</h2>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Clínica Médica</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Cirugía</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Tocoginecología</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Pediatría</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Salud Mental</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">APS</div>
+      <div class="subject" data-req="CLINICO_COMPLETO" onclick="toggle(this)">Módulo Específico / Curso de Residencia</div>
+    </div>
+  </div>
 
   <script>
-    const estructura = {
-      "CBC": [
-        "Química",
-        "Introducción al Conocimiento de la Sociedad y el Estado",
-        "Introducción al Pensamiento Científico",
-        "Matemática",
-        "Física e Introducción a la Biofísica",
-        "Biología e Introducción a la Biología Celular"
-      ],
-      "1º Año": [
-        "Anatomía",
-        "Histología-Biología Celular Embriología- Genética",
-        "Salud Mental",
-        "Bioética I",
-        "Medicina Familiar I"
-      ],
-      "2º Año": [
-        "Química Biológica",
-        "Fisiología y Biofísica"
-      ],
-      "3º Año": [
-        "Microbiología y Parasitología I",
-        "Inmunología Humana",
-        "Microbiología y Parasitología II",
-        "Patología I",
-        "Farmacología I"
-      ],
-      "Ciclo Clínico": [
-        "Medicina A",
-        "Patología II",
-        "Salud Pública I",
-        "Farmacología II",
-        "Salud Pública II",
-        "Psiquiatría",
-        "Medicina Legal Deontología Médica",
-        "Bioética II",
-        "Toxicología"
-      ],
-      "Clínicas": [
-        "Medicina B Medicina Interna",
-        "Nutrición",
-        "Diagnóstico por imágenes",
-        "Dermatología",
-        "Infectología",
-        "Neumonología",
-        "Neurología",
-        "Psiquiatría"
-      ],
-      "Quirúrgicas": [
-        "Pediatría",
-        "Obstetricia",
-        "Ginecología",
-        "Cirugía General",
-        "Urología",
-        "Ortopedia-Traumatología",
-        "Oftalmología",
-        "Otorrinolaringología",
-        "Neurocirugía"
-      ],
-      "Internado": [
-        "Clínica Médica",
-        "Cirugía",
-        "Tocoginecología",
-        "Pediatría",
-        "Salud Mental",
-        "APS",
-        "Módulo Específico/Curso de Residencia"
-      ]
-    };
+    function toggle(el) {
+      if (el.classList.contains("bloqueada")) return;
+      el.classList.toggle("aprobada");
+      actualizarEstado();
+    }
 
-    const correlativas = {
-      "Anatomía": ["CBC"],
-      "Histología-Biología Celular Embriología- Genética": ["CBC"],
-      "Salud Mental": ["CBC"],
-      "Bioética I": ["CBC"],
-      "Medicina Familiar I": ["CBC"],
-      "Química Biológica": ["Histología-Biología Celular Embriología- Genética", "Anatomía"],
-      "Fisiología y Biofísica": ["Histología-Biología Celular Embriología- Genética", "Anatomía"],
-      "Microbiología y Parasitología I": ["Química Biológica", "Fisiología y Biofísica"],
-      "Inmunología Humana": ["Química Biológica", "Fisiología y Biofísica"],
-      "Microbiología y Parasitología II": ["Microbiología y Parasitología I", "Inmunología Humana", "Fisiología y Biofísica", "Química Biológica"],
-      "Patología I": ["Fisiología y Biofísica", "Química Biológica"],
-      "Farmacología I": ["Fisiología y Biofísica", "Química Biológica"],
-      "Medicina A": ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"],
-      "Patología II": ["Microbiología y Parasitología I", "Inmunología Humana", "Patología I", "Farmacología I", "Salud Mental", "Bioética I"],
-      "Salud Pública I": ["Microbiología y Parasitología II"],
-      "Farmacología II": ["Medicina A"],
-      "Salud Pública II": ["Salud Pública I"],
-      "Psiquiatría": ["Medicina A", "Patología II"],
-      "Medicina Legal Deontología Médica": ["Psiquiatría"],
-      "Bioética II": ["Bioética I"],
-      "Toxicología": ["Medicina A", "Patología II"],
-      "Medicina B Medicina Interna": ["Medicina A", "Patología II"],
-      "Nutrición": ["Medicina A", "Patología II"],
-      "Diagnóstico por imágenes": ["Medicina A", "Patología II"],
-      "Dermatología": ["Medicina A", "Patología II"],
-      "Infectología": ["Medicina A", "Patología II"],
-      "Neumonología": ["Medicina A", "Patología II"],
-      "Neurología": ["Medicina A", "Patología II"],
-      "Pediatría": ["Medicina A", "Patología II"],
-      "Obstetricia": ["Medicina A", "Patología II"],
-      "Ginecología": ["Medicina A", "Patología II"],
-      "Cirugía General": ["Medicina A", "Patología II"],
-      "Urología": ["Medicina A", "Patología II"],
-      "Ortopedia-Traumatología": ["Medicina A", "Patología II"],
-      "Oftalmología": ["Medicina A", "Patología II"],
-      "Otorrinolaringología": ["Medicina A", "Patología II"],
-      "Neurocirugía": ["Medicina A", "Patología II"],
-      "Clínica Médica": ["Ciclo Clínico"],
-      "Cirugía": ["Ciclo Clínico"],
-      "Tocoginecología": ["Ciclo Clínico"],
-      "APS": ["Ciclo Clínico"],
-      "Módulo Específico/Curso de Residencia": ["Ciclo Clínico"]
-    };
+    function actualizarEstado() {
+      const materias = document.querySelectorAll(".subject");
+      const aprobadas = [...materias].filter(m => m.classList.contains("aprobada"));
+      const nombresAprobadas = aprobadas.map(m => m.textContent.trim());
 
-    let aprobadas = JSON.parse(localStorage.getItem("aprobadas")) || [];
+      materias.forEach(m => {
+        const req = m.getAttribute("data-req");
+        if (!req) {
+          m.classList.remove("bloqueada");
+          m.removeAttribute("data-tooltip");
+          return;
+        }
 
-    function cumple(nombre) {
-      if (!correlativas[nombre]) return true;
-      return correlativas[nombre].every(dep => {
-        if (dep === "CBC") {
-          return estructura["CBC"].every(cbc => aprobadas.includes(cbc));
-        } else if (dep === "Ciclo Clínico") {
-          return Object.entries(estructura).filter(([g]) => g.startsWith("Ciclo") || g === "Clínicas" || g === "Quirúrgicas").flatMap(([, v]) => v).every(m => aprobadas.includes(m));
+        const requeridas = req.split(",");
+        const completas = requeridas.every(r => nombresAprobadas.includes(r));
+        if (completas) {
+          m.classList.remove("bloqueada");
+          m.removeAttribute("data-tooltip");
         } else {
-          return aprobadas.includes(dep);
+          m.classList.add("bloqueada");
+          m.setAttribute("data-tooltip", `Requiere: ${requeridas.join(", ")}`);
+        }
+      });
+
+      // Verificación especial para Ciclo Clínico completo
+      const clinico = [...materias].filter(m => m.getAttribute("data-req") && !m.getAttribute("data-req").includes("CLINICO_COMPLETO"));
+      const clinicoAprobado = clinico.every(m => !m.classList.contains("bloqueada"));
+      document.querySelectorAll("[data-req='CLINICO_COMPLETO']").forEach(m => {
+        if (clinicoAprobado) {
+          m.classList.remove("bloqueada");
+          m.removeAttribute("data-tooltip");
+        } else {
+          m.classList.add("bloqueada");
+          m.setAttribute("data-tooltip", "Requiere todo el Ciclo Clínico");
         }
       });
     }
 
-    function render() {
-      const cont = document.getElementById("contenedor");
-      cont.innerHTML = "";
-
-      Object.entries(estructura).forEach(([grupo, materias]) => {
-        const col = document.createElement("div");
-        col.className = "columna";
-
-        const titulo = document.createElement("h2");
-        titulo.textContent = grupo;
-        col.appendChild(titulo);
-
-        materias.forEach(m => {
-          const div = document.createElement("div");
-          div.className = "materia";
-
-          const habilitada = cumple(m);
-          const estaAprobada = aprobadas.includes(m);
-
-          if (!habilitada && !estaAprobada) {
-            div.classList.add("bloqueada");
-            const faltantes = (correlativas[m] || []).filter(c => c !== "CBC" && c !== "Ciclo Clínico" && !aprobadas.includes(c));
-            div.setAttribute("data-tooltip", "Faltan: " + faltantes.join(", "));
-          } else if (estaAprobada) {
-            div.classList.add("aprobada");
-          }
-
-          div.textContent = m;
-          div.onclick = () => {
-            if (!habilitada && !estaAprobada) return;
-            if (estaAprobada) {
-              aprobadas = aprobadas.filter(a => a !== m);
-            } else {
-              aprobadas.push(m);
-            }
-            localStorage.setItem("aprobadas", JSON.stringify(aprobadas));
-            render();
-          };
-
-          col.appendChild(div);
-        });
-
-        cont.appendChild(col);
-      });
-    }
-
-    render();
+    actualizarEstado();
   </script>
 </body>
 </html>
